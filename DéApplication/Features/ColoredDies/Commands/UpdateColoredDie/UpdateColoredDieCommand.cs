@@ -4,6 +4,10 @@ namespace DéApplication.Features.ColoredDies.Commands.UpdateColoredDie
 {
     public class UpdateColoredDieCommand : IRequest
     {
+        public UpdateColoredDieCommand()
+        {
+
+        }
         public UpdateColoredDieCommand(int id , string title)
         {
             DieId = id;

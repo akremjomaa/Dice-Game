@@ -1,5 +1,4 @@
-﻿using DéApplication.Events;
-
+﻿
 namespace DéApplication.Entities
 {
     public class ColoredDie : Die

@@ -15,7 +15,7 @@ namespace DéApplication.Profiles
             CreateMap<ColoredDieColoredFaceDto, ColoredDieColoredFace>();
             CreateMap<ColoredDieColoredFace, ColoredDieColoredFaceDto>()
             .ConstructUsing(s => new ColoredDieColoredFaceDto(s.Id,s.DieId,s.ColoredFaceId));
-            CreateMap<ColoredDie, ColoredDieDto>().ConstructUsing(s => new ColoredDieDto(s.Title));
+            CreateMap<ColoredDie, ColoredDieDto>().ConstructUsing(s => new ColoredDieDto(s.DieId,s.Title));
         }
     }
 }

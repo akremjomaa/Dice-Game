@@ -15,7 +15,7 @@ namespace DéApplication.Profiles
             CreateMap<PicturedDiePictuedFaceDto, PicturedDiePictuedFace>();
             CreateMap<PicturedDiePictuedFace, PicturedDiePictuedFaceDto>()
             .ConstructUsing(s => new PicturedDiePictuedFaceDto(s.Id, s.DieId, s.PicturedFaceId));
-            CreateMap<PicturedDie, PicturedDieDto>().ConstructUsing(s => new PicturedDieDto(s.Title));
+            CreateMap<PicturedDie, PicturedDieDto>().ConstructUsing(s => new PicturedDieDto(s.DieId,s.Title));
         }
     }
 }

@@ -4,6 +4,10 @@ namespace DéApplication.Features.PicturedDies.Commands.UpdatePicturedDie
 {
     public class UpdatePicturedDieCommand:IRequest
     {
+        public UpdatePicturedDieCommand()
+        {
+
+        }
         public UpdatePicturedDieCommand(int id , string title)
         {
             DieId = id;
