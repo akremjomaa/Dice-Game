@@ -10,7 +10,16 @@
         }
         public int GroupOfDiceId { get; set; }
         public string Title { get; set; }
-        public IList<DieGroupOfDice> dieGroupOfDices { get; set; }
       
+
+        private readonly List<DieGroupOfDice> _dieGroupOdDice = new List<DieGroupOfDice>();
+        public virtual IEnumerable<DieGroupOfDice> DieGroupOfDices => _dieGroupOdDice.AsReadOnly();
+
+        public void AddDiceToGroupOfDice(List<DieGroupOfDice> dieGroupOfDices)
+        {
+            _dieGroupOdDice.AddRange(dieGroupOfDices);
+
+        }
+
     }
 }

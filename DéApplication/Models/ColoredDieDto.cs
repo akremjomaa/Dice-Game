@@ -11,6 +11,6 @@ namespace DéApplication.Models
         }
         public int ColoredDieId { get; set; }
         public string Title { get; set; }
-        public List<ColoredDieColoredFace> coloredDieColoredFaces { get; set; }  
+        public List<ColoredDieColoredFaceDto> coloredDieColoredFaces { get; set; }  
     }
 }

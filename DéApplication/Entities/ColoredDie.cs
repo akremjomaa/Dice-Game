@@ -15,10 +15,7 @@ namespace DéApplication.Entities
         public void AddColoredDieColoredFaces(List<ColoredDieColoredFace> coloredDieColoredFaces)
         {
             _coloredDieColoredFaces.AddRange(coloredDieColoredFaces);
-           /* foreach(var coloredDieColoredFace in coloredDieColoredFaces)
-            {
-                var newColoredFaceAddedEvent = new DieColoredFacesChosenEvent(this, coloredDieColoredFace.ColoredFace);
-                Events.Add(newColoredFaceAddedEvent);*/
+          
             }
         }
 

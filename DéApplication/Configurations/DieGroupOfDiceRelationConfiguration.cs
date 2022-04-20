@@ -9,9 +9,9 @@ namespace DéApplication.Configurations
         public DbSet<DieGroupOfDice> dieGroupOfDices { get; set; }
         public void Configure(EntityTypeBuilder<DieGroupOfDice> builder)
         {
-            builder.HasKey(sc => new { sc.GroupOfDiceId, sc.DieId });
+           
             builder.HasOne(sc => sc.GroupOfDice)
-            .WithMany(s => s.dieGroupOfDices)
+            .WithMany(s => s.DieGroupOfDices)
             .HasForeignKey(sc => sc.GroupOfDiceId);
 
 
