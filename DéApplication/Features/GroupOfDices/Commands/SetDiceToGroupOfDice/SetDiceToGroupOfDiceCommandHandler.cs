@@ -22,7 +22,7 @@ namespace DéApplication.Features.GroupOfDices.Commands.SetDiceToGroupOfDice
             if (request.DieGroupOfDice != null && request.DieGroupOfDice.Count > 0)
             {
                 var diesToAdd = new List<DieGroupOfDice>();
-                var groupOfDiceToUpdate = await _groupOfDiceRepository.GetByIdAsync(request.GroupOfDiceId);
+                var groupOfDiceToUpdate = await _groupOfDiceRepository.GetByIdAsync(request.DieGroupOfDice.FirstOrDefault().GroupOfDieId);
                 foreach (var gd in request.DieGroupOfDice)
                 {
                     var groupOfDice = _mapper.Map<DieGroupOfDice>(gd);

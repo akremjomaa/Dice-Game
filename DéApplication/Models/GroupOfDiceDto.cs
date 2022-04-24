@@ -12,6 +12,6 @@ namespace DéApplication.Models
         }
         public int GroupOfDiceId { get; set; }
         public string Title { get; set; }
-        public List<DieGroupOfDice> dieGroupOfDices { get; set; }
+       
     }
 }

@@ -14,7 +14,7 @@ namespace DéApplication.Profiles
             CreateMap<UpdateGroupOfDiceCommand, GroupOfDice>();
             CreateMap<DieGroupOfDiceDto, DieGroupOfDice>();
             CreateMap<DieGroupOfDice, DieGroupOfDiceDto>()
-            .ConstructUsing(s => new DieGroupOfDiceDto(s.Id, s.DieId));
+            .ConstructUsing(s => new DieGroupOfDiceDto(s.Id, s.DieId,s.GroupOfDiceId));
             CreateMap<GroupOfDice, GroupOfDiceDto>().ConstructUsing(s => new GroupOfDiceDto(s.GroupOfDiceId, s.Title));
         }
     }
