@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using DéApplication.Entities;
+using DéApplication.Features.GroupOfDices.Queries.GetGroupOfDiceDetail;
 using DéApplication.Repositories.Interfaces;
 using MediatR;
 
@@ -31,6 +32,7 @@ namespace DéApplication.Features.GroupOfDices.Commands.SetDiceToGroupOfDice
                 groupOfDiceToUpdate.AddDiceToGroupOfDice(diesToAdd);
                 await _groupOfDiceRepository.UpdateAsync(groupOfDiceToUpdate);
             }
+            
             return Unit.Value;
         }
     }

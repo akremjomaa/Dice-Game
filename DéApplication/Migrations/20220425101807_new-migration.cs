@@ -4,7 +4,7 @@
 
 namespace DéApplication.Migrations
 {
-    public partial class firstmigration : Migration
+    public partial class newmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,8 +28,7 @@ namespace DéApplication.Migrations
                     DieId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    die_type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    type = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,7 +67,9 @@ namespace DéApplication.Migrations
                 {
                     PicturedFaceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FaceId = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,12 +80,14 @@ namespace DéApplication.Migrations
                 name: "ColoredDieColoredFace",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DieId = table.Column<int>(type: "int", nullable: false),
                     ColoredFaceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ColoredDieColoredFace", x => new { x.DieId, x.ColoredFaceId });
+                    table.PrimaryKey("PK_ColoredDieColoredFace", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ColoredDieColoredFace_ColoredFace_ColoredFaceId",
                         column: x => x.ColoredFaceId,
@@ -103,12 +106,14 @@ namespace DéApplication.Migrations
                 name: "DieGroupOfDice",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DieId = table.Column<int>(type: "int", nullable: false),
                     GroupOfDiceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DieGroupOfDice", x => new { x.GroupOfDiceId, x.DieId });
+                    table.PrimaryKey("PK_DieGroupOfDice", x => x.Id);
                     table.ForeignKey(
                         name: "FK_DieGroupOfDice_Dies_DieId",
                         column: x => x.DieId,
@@ -127,12 +132,14 @@ namespace DéApplication.Migrations
                 name: "NumberedDieNumberedFace",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DieId = table.Column<int>(type: "int", nullable: false),
                     NumberedFaceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NumberedDieNumberedFace", x => new { x.DieId, x.NumberedFaceId });
+                    table.PrimaryKey("PK_NumberedDieNumberedFace", x => x.Id);
                     table.ForeignKey(
                         name: "FK_NumberedDieNumberedFace_Dies_DieId",
                         column: x => x.DieId,
@@ -151,12 +158,14 @@ namespace DéApplication.Migrations
                 name: "PicturedDiePictuedFace",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DieId = table.Column<int>(type: "int", nullable: false),
                     PicturedFaceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PicturedDiePictuedFace", x => new { x.DieId, x.PicturedFaceId });
+                    table.PrimaryKey("PK_PicturedDiePictuedFace", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PicturedDiePictuedFace_Dies_DieId",
                         column: x => x.DieId,
@@ -177,14 +186,34 @@ namespace DéApplication.Migrations
                 column: "ColoredFaceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ColoredDieColoredFace_DieId",
+                table: "ColoredDieColoredFace",
+                column: "DieId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DieGroupOfDice_DieId",
                 table: "DieGroupOfDice",
+                column: "DieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DieGroupOfDice_GroupOfDiceId",
+                table: "DieGroupOfDice",
+                column: "GroupOfDiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NumberedDieNumberedFace_DieId",
+                table: "NumberedDieNumberedFace",
                 column: "DieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NumberedDieNumberedFace_NumberedFaceId",
                 table: "NumberedDieNumberedFace",
                 column: "NumberedFaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PicturedDiePictuedFace_DieId",
+                table: "PicturedDiePictuedFace",
+                column: "DieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PicturedDiePictuedFace_PicturedFaceId",

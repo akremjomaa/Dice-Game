@@ -12,6 +12,6 @@ namespace DéApplication.Models
         }
         public int NumberedDieId { get;set; }
         public string Title { get; set; }
-        public List<NumberedDieNumberedFace> numberedDieNumberedFaces { get; set; }
+       /* public List<NumberedDieNumberedFace> numberedDieNumberedFaces { get; set; }*/
     }
 }

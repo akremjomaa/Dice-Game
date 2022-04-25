@@ -12,7 +12,7 @@ namespace DéApplication.Models
         }
         public int PicturedDieId { get; set; }
         public string Title { get; set; }
-        public List<PicturedDiePictuedFace> picturedDiePictuedFaces { get; set; }
+        /*public List<PicturedDiePictuedFace> picturedDiePictuedFaces { get; set; }*/
 
     }
 }

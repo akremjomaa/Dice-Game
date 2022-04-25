@@ -9,12 +9,18 @@ namespace DéApplication.Configurations
         public DbSet<Die> Dies { get; set;}
         public void Configure(EntityTypeBuilder<Die> builder)
         {
-         builder
-        .HasDiscriminator<string>("Die_Type")
-        .HasValue<Die>("die_base")
-        .HasValue<NumberedDie>("die_number")
-        .HasValue<ColoredDie>("die_color")
-        .HasValue<PicturedDie>("die_picture");
+            builder
+           .HasDiscriminator(b => b.Type);
+            builder
+         .Property(e => e.Type)
+        .HasMaxLength(200)
+        .HasColumnName("type");
+            /*.HasDiscriminator<string>("Die_Type")
+            .HasValue<Die>("die_base")
+            .HasValue<NumberedDie>("die_number")
+            .HasValue<ColoredDie>("die_color")
+            .HasValue<PicturedDie>("die_picture")*/
+
         }
     }
 }

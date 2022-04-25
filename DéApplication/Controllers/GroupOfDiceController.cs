@@ -1,4 +1,6 @@
-﻿using DéApplication.Features.GroupOfDices.Commands.AddGroupOfDice;
+﻿using DéApplication.DbContexts;
+using DéApplication.Entities;
+using DéApplication.Features.GroupOfDices.Commands.AddGroupOfDice;
 using DéApplication.Features.GroupOfDices.Commands.DeleteGroupOfDice;
 using DéApplication.Features.GroupOfDices.Commands.SetDiceToGroupOfDice;
 using DéApplication.Features.GroupOfDices.Commands.UpdateGroupOfDice;
@@ -8,6 +10,7 @@ using DéApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DéApplication.Controllers
 {
@@ -18,10 +21,12 @@ namespace DéApplication.Controllers
         private const string EntityName = "groupOfDice";
         private readonly ILogger<GroupOfDiceController> _log;
         private readonly IMediator _mediator;
-        public GroupOfDiceController(ILogger<GroupOfDiceController> logger, IMediator mediator)
+        private readonly DiceContext _diceContext;
+        public GroupOfDiceController(ILogger<GroupOfDiceController> logger, IMediator mediator, DiceContext diceContext)
         {
             _log = logger;
             _mediator = mediator;
+            _diceContext = diceContext;
 
         }
         [HttpGet("all")]
@@ -65,5 +70,15 @@ namespace DéApplication.Controllers
             return Ok(response);
 
         }
+       /* [HttpGet("type")]
+        public async Task<IActionResult>type(int dieId)
+        { 
+            var colored = 
+            var dietmp =await _diceContext.Dies.FirstOrDefaultAsync();
+            var xxx =  dietmp.GetType().Name;
+            return Ok(xxx);
+        }*/
+
+       
     }
 }

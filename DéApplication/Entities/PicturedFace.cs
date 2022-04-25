@@ -1,6 +1,6 @@
 ﻿namespace DéApplication.Entities
 {
-    public class PicturedFace : Face
+    public class PicturedFace 
     {
         public PicturedFace(string picture) 
         {

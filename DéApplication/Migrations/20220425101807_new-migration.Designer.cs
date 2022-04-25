@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DéApplication.Migrations
 {
     [DbContext(typeof(DiceContext))]
-    [Migration("20220417154055_first migration")]
-    partial class firstmigration
+    [Migration("20220425101807_new-migration")]
+    partial class newmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,15 +25,23 @@ namespace DéApplication.Migrations
 
             modelBuilder.Entity("DéApplication.Entities.ColoredDieColoredFace", b =>
                 {
-                    b.Property<int>("DieId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("ColoredFaceId")
                         .HasColumnType("int");
 
-                    b.HasKey("DieId", "ColoredFaceId");
+                    b.Property<int>("DieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ColoredFaceId");
+
+                    b.HasIndex("DieId");
 
                     b.ToTable("ColoredDieColoredFace");
                 });
@@ -67,28 +75,38 @@ namespace DéApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("die_type")
+                    b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("type");
 
                     b.HasKey("DieId");
 
                     b.ToTable("Dies");
 
-                    b.HasDiscriminator<string>("die_type").HasValue("die_base");
+                    b.HasDiscriminator<string>("Type").HasValue("Die");
                 });
 
             modelBuilder.Entity("DéApplication.Entities.DieGroupOfDice", b =>
                 {
-                    b.Property<int>("GroupOfDiceId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("DieId")
                         .HasColumnType("int");
 
-                    b.HasKey("GroupOfDiceId", "DieId");
+                    b.Property<int>("GroupOfDiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("DieId");
+
+                    b.HasIndex("GroupOfDiceId");
 
                     b.ToTable("DieGroupOfDice");
                 });
@@ -112,13 +130,21 @@ namespace DéApplication.Migrations
 
             modelBuilder.Entity("DéApplication.Entities.NumberedDieNumberedFace", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<int>("DieId")
                         .HasColumnType("int");
 
                     b.Property<int>("NumberedFaceId")
                         .HasColumnType("int");
 
-                    b.HasKey("DieId", "NumberedFaceId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("DieId");
 
                     b.HasIndex("NumberedFaceId");
 
@@ -143,13 +169,21 @@ namespace DéApplication.Migrations
 
             modelBuilder.Entity("DéApplication.Entities.PicturedDiePictuedFace", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<int>("DieId")
                         .HasColumnType("int");
 
                     b.Property<int>("PicturedFaceId")
                         .HasColumnType("int");
 
-                    b.HasKey("DieId", "PicturedFaceId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("DieId");
 
                     b.HasIndex("PicturedFaceId");
 
@@ -164,7 +198,14 @@ namespace DéApplication.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PicturedFaceId"), 1L, 1);
 
+                    b.Property<int>("FaceId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Picture")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -177,39 +218,21 @@ namespace DéApplication.Migrations
                 {
                     b.HasBaseType("DéApplication.Entities.Die");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Type");
-
-                    b.HasDiscriminator().HasValue("die_color");
+                    b.HasDiscriminator().HasValue("ColoredDie");
                 });
 
             modelBuilder.Entity("DéApplication.Entities.NumberedDie", b =>
                 {
                     b.HasBaseType("DéApplication.Entities.Die");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Type");
-
-                    b.HasDiscriminator().HasValue("die_number");
+                    b.HasDiscriminator().HasValue("NumberedDie");
                 });
 
             modelBuilder.Entity("DéApplication.Entities.PicturedDie", b =>
                 {
                     b.HasBaseType("DéApplication.Entities.Die");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .ValueGeneratedOnUpdateSometimes()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Type");
-
-                    b.HasDiscriminator().HasValue("die_picture");
+                    b.HasDiscriminator().HasValue("PicturedDie");
                 });
 
             modelBuilder.Entity("DéApplication.Entities.ColoredDieColoredFace", b =>
@@ -221,7 +244,7 @@ namespace DéApplication.Migrations
                         .IsRequired();
 
                     b.HasOne("DéApplication.Entities.ColoredDie", "ColoredDie")
-                        .WithMany("coloredDieColoredFaces")
+                        .WithMany("ColoredDieColoredFaces")
                         .HasForeignKey("DieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -240,7 +263,7 @@ namespace DéApplication.Migrations
                         .IsRequired();
 
                     b.HasOne("DéApplication.Entities.GroupOfDice", "GroupOfDice")
-                        .WithMany("dieGroupOfDices")
+                        .WithMany("DieGroupOfDices")
                         .HasForeignKey("GroupOfDiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -253,7 +276,7 @@ namespace DéApplication.Migrations
             modelBuilder.Entity("DéApplication.Entities.NumberedDieNumberedFace", b =>
                 {
                     b.HasOne("DéApplication.Entities.NumberedDie", "NumberedDie")
-                        .WithMany("numberedDieNumberedFaces")
+                        .WithMany("NumberedDieNumberedFaces")
                         .HasForeignKey("DieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -272,7 +295,7 @@ namespace DéApplication.Migrations
             modelBuilder.Entity("DéApplication.Entities.PicturedDiePictuedFace", b =>
                 {
                     b.HasOne("DéApplication.Entities.PicturedDie", "PicturedDie")
-                        .WithMany("picturedDiePictuedFaces")
+                        .WithMany("PicturedDiePictuedFaces")
                         .HasForeignKey("DieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -300,7 +323,7 @@ namespace DéApplication.Migrations
 
             modelBuilder.Entity("DéApplication.Entities.GroupOfDice", b =>
                 {
-                    b.Navigation("dieGroupOfDices");
+                    b.Navigation("DieGroupOfDices");
                 });
 
             modelBuilder.Entity("DéApplication.Entities.NumberedFace", b =>
@@ -315,17 +338,17 @@ namespace DéApplication.Migrations
 
             modelBuilder.Entity("DéApplication.Entities.ColoredDie", b =>
                 {
-                    b.Navigation("coloredDieColoredFaces");
+                    b.Navigation("ColoredDieColoredFaces");
                 });
 
             modelBuilder.Entity("DéApplication.Entities.NumberedDie", b =>
                 {
-                    b.Navigation("numberedDieNumberedFaces");
+                    b.Navigation("NumberedDieNumberedFaces");
                 });
 
             modelBuilder.Entity("DéApplication.Entities.PicturedDie", b =>
                 {
-                    b.Navigation("picturedDiePictuedFaces");
+                    b.Navigation("PicturedDiePictuedFaces");
                 });
 #pragma warning restore 612, 618
         }

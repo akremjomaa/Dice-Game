@@ -7,6 +7,7 @@ namespace DéApplication.Entities
         {
 
             Title = title;
+          /*  Type = type;*/
            
         }
         private readonly List<ColoredDieColoredFace> _coloredDieColoredFaces = new List<ColoredDieColoredFace>();

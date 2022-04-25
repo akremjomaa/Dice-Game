@@ -6,6 +6,7 @@
         {
             Title = title;
           
+          
         }
         
         private readonly List<NumberedDieNumberedFace> _numberedDieNumberedFaces = new List<NumberedDieNumberedFace>();
